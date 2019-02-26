@@ -5,7 +5,7 @@ export default [{
     // library
     input: 'src/qr-scanner.js',
     output: {
-        file: 'qr-scanner.min.js',
+        file: 'dist/qr-scanner-es6.min.js',
         format: 'esm',
         interop: false,
         sourcemap: true,
@@ -21,7 +21,7 @@ export default [{
     // worker
     input: 'src/worker.js',
     output: {
-        file: 'qr-scanner-worker.min.js',
+        file: 'dist/qr-scanner-worker-es6.min.js',
         format: 'iife',
         interop: false,
         sourcemap: true,
@@ -29,10 +29,41 @@ export default [{
     plugins: [
         sourcemaps(),
         closureCompiler({
-            //compilation_level: 'ADVANCED',
-            //warning_level: 'QUIET',
             language_in: 'ECMASCRIPT6',
             language_out: 'ECMASCRIPT6',
+            rewrite_polyfills: false,
+        }),
+    ]
+}, {
+    // library
+    input: 'src/qr-scanner.js',
+    output: {
+        file: 'dist/qr-scanner-es5.min.js',
+        format: 'esm',
+        interop: false,
+        sourcemap: true,
+    },
+    plugins: [
+        closureCompiler({
+            language_in: 'ECMASCRIPT6',
+            language_out: 'ECMASCRIPT5',
+            rewrite_polyfills: false,
+        })
+    ]
+}, {
+    // worker
+    input: 'src/worker.js',
+    output: {
+        file: 'dist/qr-scanner-worker-es5.min.js',
+        format: 'iife',
+        interop: false,
+        sourcemap: true,
+    },
+    plugins: [
+        sourcemaps(),
+        closureCompiler({
+            language_in: 'ECMASCRIPT6',
+            language_out: 'ECMASCRIPT5',
             rewrite_polyfills: false,
         }),
     ]
